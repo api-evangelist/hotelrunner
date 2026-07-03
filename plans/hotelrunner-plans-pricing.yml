@@ -1,0 +1,154 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: HotelRunner
+providerId: hotelrunner
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Hospitality
+- Hotel
+- Channel Manager
+- Plans
+description: >-
+  HotelRunner sells per-property SaaS subscriptions, not per-API-call pricing.
+  The Custom Apps REST/XML API is bundled into the platform at no separate fee
+  once a property (or PMS partner) is connected - there is no metered charge
+  for API requests themselves. Essential-tier plans combine a minimum monthly
+  flat fee with a percentage-of-booking-revenue component; Advanced and Elite
+  tiers are quoted on request. A partner PMS integrates once against the sandbox
+  Custom Apps environment and then each of its customer properties subscribes
+  to a HotelRunner plan independently.
+notes: >-
+  Rates below are transcribed from HotelRunner's public pricing page in USD.
+  Advanced and Elite tier pricing is not published and requires contacting
+  sales. Percentage fees apply to monthly realized booking revenue across all
+  connected channels, on top of (or in place of, depending on plan) the flat
+  minimum.
+sources:
+- https://hotelrunner.com/en/pricing/
+- https://developers.hotelrunner.com/custom-apps/getting-started
+plans:
+- id: hotelrunner-essential-manage
+  name: Essential Manage
+  type: paid
+  description: >-
+    Front desk automation and basic reporting. Unlimited users and rooms, up
+    to 50 rate plans. No channel manager, booking engine, or website included.
+  entries:
+  - label: Minimum Monthly Fee
+    name: essential_manage_minimum
+    type: flat
+    metric: property
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $19.95/month minimum, plus 0.75% of monthly realized booking revenue
+    userMultiplied: false
+  elements:
+  - name: Front Desk Automation
+  - name: Basic Reporting
+  - name: Unlimited Users
+  - name: Unlimited Rooms
+  - name: 50 Rate Plans
+- id: hotelrunner-essential-sell
+  name: Essential Sell
+  type: paid
+  description: >-
+    HotelRunner's most popular tier - channel manager, central reservation
+    system, booking engine, content manager, metasearch, and website, without
+    the Manage tier's front-desk automation.
+  entries:
+  - label: Minimum Monthly Fee
+    name: essential_sell_minimum
+    type: flat
+    metric: property
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $29.95/month minimum, plus 1.25% of monthly realized booking revenue
+    userMultiplied: false
+  elements:
+  - name: Channel Manager
+  - name: Central Reservation System
+  - name: Booking Engine
+  - name: Content Manager
+  - name: Metasearch
+  - name: Website
+  - name: Unlimited Users
+  - name: Unlimited Rooms
+  - name: 50 Rate Plans
+- id: hotelrunner-essential-complete
+  name: Essential Complete
+  type: paid
+  description: All Essential Manage and Essential Sell products combined.
+  entries:
+  - label: Minimum Monthly Fee
+    name: essential_complete_minimum
+    type: flat
+    metric: property
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $39.95/month minimum, plus 1% of monthly realized booking revenue
+    userMultiplied: false
+  elements:
+  - name: All Essential Manage Products
+  - name: All Essential Sell Products
+  - name: Unlimited Users
+  - name: Unlimited Rooms
+  - name: 50 Rate Plans
+- id: hotelrunner-advanced
+  name: Advanced (Automate / Explore / Complete)
+  type: enterprise
+  description: >-
+    Custom-quoted tier adding guest relationship management, review center,
+    custom apps, autopilot automation (Automate), insights dashboards and
+    competition analysis (Explore), or both (Complete).
+  entries:
+  - label: Advanced Tier
+    name: advanced_tier
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Guest Relationship Management
+  - name: Review Center
+  - name: Custom Apps
+  - name: Autopilot
+  - name: Insights Dashboards
+  - name: Competition Analysis
+- id: hotelrunner-elite
+  name: Elite
+  type: enterprise
+  description: >-
+    Unlimited use of all HotelRunner products with dedicated consultancy, a
+    private support line, and project management.
+  entries:
+  - label: Elite Agreement
+    name: elite_agreement
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Unlimited Use of All Products
+  - name: Dedicated Consultancy
+  - name: Private Support Line
+  - name: Project Management
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

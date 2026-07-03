@@ -1,0 +1,63 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: HotelRunner
+providerId: hotelrunner
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Hospitality
+- Hotel
+- Channel Manager
+- Rate Limiting
+- Quotas
+description: >-
+  HotelRunner's Custom Apps documentation does not publish numeric per-minute
+  or per-day request-rate limits for the REST or XML API. The documented
+  operational controls are structural rather than throttling-based: inventory
+  updates via /rooms/daily are capped at 90 dates per call, and reservation
+  delivery failures follow a retry/timeout convention rather than a rate
+  limit - HotelRunner expects a connecting PMS to retry a failed delivery
+  until it succeeds or a documented timeout window (for example, 30 minutes)
+  is reached. Update calls can also return a status of try_again, signaling
+  the caller should retry rather than having been throttled outright.
+notes: >-
+  No numeric requests-per-second/minute ceiling is published as of the review
+  date. Verify directly with HotelRunner's partner integrations team for any
+  unpublished throttling applied at the infrastructure layer.
+sources:
+- https://developers.hotelrunner.com/custom-apps/rest-api
+- https://developers.hotelrunner.com/custom-apps/rest-api/inventory/update-room-multi-rooms-dates
+- https://developers.hotelrunner.com/custom-apps/xml-api/error-handling
+responseCodes:
+  throttled: not published
+limits:
+- name: Bulk Update Date Window
+  scope: request
+  metric: dates
+  limit: 90
+  notes: The /rooms/daily bulk update endpoint accepts at most 90 dates per room per call.
+- name: Update Retry Signal
+  scope: request
+  metric: status
+  limit: try_again response
+  notes: Inventory update endpoints return status=try_again when a change should be retried rather than a numeric backoff value.
+- name: Reservation Delivery Retry Window
+  scope: integration
+  metric: minutes
+  limit: 'documented example: 30 minutes'
+  notes: PMS partners are expected to retry undelivered reservation pushes until success or a pre-defined timeout, per HotelRunner's error-handling guidance.
+- name: Reservations List Page Size
+  scope: request
+  metric: records
+  limit: per_page (default 10)
+  notes: The reservations list endpoint paginates with a caller-supplied per_page and page parameter; no documented maximum page size.
+policies:
+- name: Retry Until Timeout
+  description: On delivery failure (5xx range), the connecting PMS should retry sending updates until success or a pre-defined timeout is reached.
+- name: Escalate After Timeout
+  description: If delivery still fails once the timeout window elapses, HotelRunner's guidance is to escalate to partner support rather than continue silent retries.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

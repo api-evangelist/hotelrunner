@@ -1,0 +1,119 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HotelRunner Custom Apps REST API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "none"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inventory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Get room list.", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.hotelrunner.com/api/v2/apps/rooms?token=&hr_id=" },
+          "docs": "Returns all rooms/room types and their master rate configuration for the property."
+        },
+        {
+          "info": { "name": "Update room (date range).", "type": "http" },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.hotelrunner.com/api/v2/apps/rooms/~?token=&hr_id=&room_code=HR:1&@rooms.inv_code=HR:1&start_date=2026-08-01&end_date=2026-08-07&availability=5&price=150&stop_sale=0"
+          },
+          "docs": "Updates availability, price, stop-sale, and restrictions for a room type across a date range."
+        },
+        {
+          "info": { "name": "Update rooms (bulk, multi-date).", "type": "http" },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.hotelrunner.com/api/v2/apps/rooms/daily?token=&hr_id=",
+            "body": { "type": "json", "data": "{\n  \"rooms\": [\n    {\n      \"inv_code\": \"HR:1903\",\n      \"channel_codes\": [\"online\"],\n      \"dates\": [\n        {\"date\": \"2026-08-01\", \"availability\": \"4\", \"price\": \"400\"}\n      ]\n    }\n  ]\n}" }
+          },
+          "docs": "Bulk updates availability, price, and restrictions for one or more rooms across up to 90 dates per call."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reservations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Retrieve reservations.", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.hotelrunner.com/api/v2/apps/reservations?token=&hr_id=" },
+          "docs": "Lists undelivered reservations by default; supports date, pagination, modified, and booked filters."
+        },
+        {
+          "info": { "name": "Confirm a reservation.", "type": "http" },
+          "http": { "method": "PUT", "url": "https://app.hotelrunner.com/api/v2/apps/reservations/fire?token=&hr_id=&hr_number=R387266425&event=confirm" },
+          "docs": "Fires a confirm state-change event on a reservation."
+        },
+        {
+          "info": { "name": "Cancel a reservation.", "type": "http" },
+          "http": { "method": "PUT", "url": "https://app.hotelrunner.com/api/v2/apps/reservations/fire?token=&hr_id=&hr_number=R387266425&event=cancel&cancel_reason=customer" },
+          "docs": "Fires a cancel state-change event on a reservation with a required cancel reason."
+        },
+        {
+          "info": { "name": "Confirm reservation delivery.", "type": "http" },
+          "http": { "method": "PUT", "url": "https://app.hotelrunner.com/api/v2/apps/reservations/~?token=&hr_id=&message_uid=ac3bd58f73e83cfb671903bf7d20787111&pms_number=PMS3425" },
+          "docs": "Acknowledges delivery of a reservation payload by its message_uid."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Channels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List connected channels.", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.hotelrunner.com/api/v2/apps/infos/connected_channels?token=&hr_id=" },
+          "docs": "Lists connected OTA/sales channels with update progress stats."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reference Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Get property kinds.", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.hotelrunner.com/api/property/types.json" },
+          "docs": "Returns the id-name mapping of property kinds (Villa, Resort, etc)."
+        },
+        {
+          "info": { "name": "Get room kinds.", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.hotelrunner.com/api/room/types.json" },
+          "docs": "Returns the id-name mapping of room kinds (Apartment, Bungalow, etc)."
+        },
+        {
+          "info": { "name": "Get currencies.", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.hotelrunner.com/api/currency/currencies.json" },
+          "docs": "Returns the selectable currency list for a property."
+        },
+        {
+          "info": { "name": "Get country codes.", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.hotelrunner.com/services/country-codes" },
+          "docs": "Returns the ISO country code list."
+        },
+        {
+          "info": { "name": "Get channel list.", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.hotelrunner.com/services/channel-list" },
+          "docs": "Returns the master list of connectable OTA channel codes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

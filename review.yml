@@ -1,0 +1,142 @@
+aid: hotelrunner
+name: HotelRunner
+review:
+  question: Does HotelRunner expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-03'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. HotelRunner's own public Custom Apps
+    surface (REST, and a legacy XML/SOAP API) is request/response over HTTPS.
+    HotelRunner does deliver reservation events asynchronously, but it does so
+    as an outbound HTTP POST "realtime push" webhook to a URL hosted on the
+    connecting PMS - HotelRunner is the client making the call, not a server
+    exposing a subscribable stream - so there is no WebSocket (or SSE) surface
+    on HotelRunner's own API to model as AsyncAPI.
+  findings:
+    summary: |
+      HotelRunner does not publish a documented public WebSocket API. HotelRunner
+      is a hotel channel manager / CRS / booking engine platform. Its Custom Apps
+      program exposes a token-authenticated REST API (base
+      https://app.hotelrunner.com/api/v2/apps, credentialed with token + hr_id
+      query parameters obtained from the property's Partners extranet or a PMS
+      sandbox) plus an older OTA-style XML/SOAP API covering the same inventory
+      and reservation operations. Both are pure request/response HTTP(S). The
+      one asynchronous mechanism HotelRunner documents - "Realtime Push" for
+      reservations - is an outbound webhook: HotelRunner POSTs a JSON payload
+      (as an x-www-form-urlencoded `data` field) to an HTTPS URL hosted by the
+      connecting PMS, and expects a `{"status":"ok"}` acknowledgement back, with
+      documented retry-until-timeout behavior on failure. No ws:// or wss://
+      endpoint is documented anywhere in HotelRunner's developer portal.
+    openSource: |
+      HotelRunner is closed-source, proprietary SaaS. No open-source client
+      libraries, SDKs, or server code are published by HotelRunner itself; the
+      only GitHub presence found for "hotelrunner" is an unrelated, empty user
+      account with no public repositories.
+    transports:
+      - protocol: REST
+        scheme: https
+        baseURL: https://app.hotelrunner.com/api/v2/apps
+        documented: true
+        note: Custom Apps REST API for inventory, reservations, and channels - token + hr_id query-string auth.
+      - protocol: REST
+        scheme: https
+        baseURL: https://app.hotelrunner.com
+        documented: true
+        note: Public reference/services lookup endpoints (property kinds, room kinds, currencies, country codes, channel list).
+      - protocol: SOAP/XML
+        scheme: https
+        documented: true
+        note: Legacy OTA-style XML API covering the same inventory and reservation operations as the REST API; used by many existing PMS integrations.
+      - protocol: Webhook
+        scheme: https
+        documented: true
+        note: Outbound HTTP POST "Realtime Push" of new/updated reservations to a URL hosted on the connecting PMS, acknowledged with a status:ok JSON response.
+      - protocol: WebSocket
+        scheme: wss
+        documented: false
+        note: No WebSocket endpoint is documented anywhere in HotelRunner's Custom Apps, XML API, or Services reference as of the review date.
+    endpointsConfirmed:
+      - GET https://app.hotelrunner.com/api/v2/apps/rooms
+      - PUT https://app.hotelrunner.com/api/v2/apps/rooms/~
+      - PUT https://app.hotelrunner.com/api/v2/apps/rooms/daily
+      - GET https://app.hotelrunner.com/api/v2/apps/reservations
+      - PUT https://app.hotelrunner.com/api/v2/apps/reservations/fire
+      - PUT https://app.hotelrunner.com/api/v2/apps/reservations/~
+      - GET https://app.hotelrunner.com/api/v2/apps/infos/connected_channels
+      - GET https://app.hotelrunner.com/api/property/types.json
+      - GET https://app.hotelrunner.com/api/room/types.json
+      - GET https://app.hotelrunner.com/api/currency/currencies.json
+    endpointsModeled:
+      - GET https://app.hotelrunner.com/services/get-property-services
+      - GET https://app.hotelrunner.com/services/get-property-facilities
+      - GET https://app.hotelrunner.com/services/get-room-amenities
+      - GET https://app.hotelrunner.com/services/country-codes
+      - GET https://app.hotelrunner.com/services/channel-list
+    modeledNote: |
+      HotelRunner's documentation portal confirms these five paths exist under
+      its Services navigation and describes their purpose (id-name reference
+      lookups, country codes, and the master channel list), but did not render
+      an explicit example JSON response or a fully qualified domain for each in
+      the pages fetched during this review - their response shape is modeled on
+      the sibling get-currencies/get-room-kinds endpoints, which do show a
+      confirmed https://app.hotelrunner.com host and JSON-file-style path.
+  sources:
+    - url: https://developers.hotelrunner.com/
+      type: Documentation
+      note: HotelRunner developer portal home and navigation.
+    - url: https://developers.hotelrunner.com/custom-apps/getting-started
+      type: Documentation
+      note: Sandbox onboarding; TOKEN/HR_ID/tracking code credential model. No WebSocket mentioned.
+    - url: https://developers.hotelrunner.com/custom-apps/rest-api/inventory/get-room-list
+      type: APIReference
+      note: Confirms base URL https://app.hotelrunner.com/api/v2/apps and token/hr_id auth.
+    - url: https://developers.hotelrunner.com/custom-apps/rest-api/inventory/update-room
+      type: APIReference
+      note: Date-range availability/rate/restriction update endpoint.
+    - url: https://developers.hotelrunner.com/custom-apps/rest-api/inventory/update-room-multi-rooms-dates
+      type: APIReference
+      note: Bulk multi-room, multi-date update endpoint (max 90 dates/call).
+    - url: https://developers.hotelrunner.com/custom-apps/rest-api/reservations/retrieve-reservations
+      type: APIReference
+      note: Reservation retrieval with pagination and filters. REST, not WebSocket.
+    - url: https://developers.hotelrunner.com/custom-apps/rest-api/reservations/realtime-push
+      type: Documentation
+      note: Outbound webhook (HTTP POST) mechanism for pushing reservations to a PMS-hosted URL - not a WebSocket.
+    - url: https://developers.hotelrunner.com/custom-apps/rest-api/reservations/reservation-state-update
+      type: APIReference
+      note: Confirm/cancel reservation state-change endpoint.
+    - url: https://developers.hotelrunner.com/custom-apps/rest-api/reservations/confirm-reservation-delivery
+      type: APIReference
+      note: Delivery acknowledgement endpoint keyed by message_uid.
+    - url: https://developers.hotelrunner.com/custom-apps/rest-api/channels
+      type: APIReference
+      note: Connected channel list with distribution status counts.
+    - url: https://developers.hotelrunner.com/services/get-currencies
+      type: Documentation
+      note: Confirmed reference endpoint path /api/currency/currencies.json.
+    - url: https://developers.hotelrunner.com/services/get-room-kinds
+      type: Documentation
+      note: Confirmed reference endpoint path /api/room/types.json.
+    - url: https://developers.hotelrunner.com/custom-apps/xml-api/error-handling
+      type: Documentation
+      note: Retry/timeout error-handling guidance for the legacy XML API; no numeric rate limits published.
+    - url: https://hotelrunner.com/en/pricing/
+      type: Documentation
+      note: Essential/Advanced/Elite per-property subscription pricing.
+    - url: https://www.linkedin.com/company/hotelrunner
+      type: Documentation
+      note: Company background - founded 2011, hospitality technology platform.
+    - url: https://github.com/hotelrunner
+      type: SourceCode
+      note: Unrelated empty GitHub user account; no official HotelRunner open-source presence found.
+  actions:
+    asyncapiPath: null
+    apisYmlUpdated: true
+    reason: |
+      No WebSocket protocol surface exists on HotelRunner's own API. HotelRunner's
+      documented asynchronous behavior (Realtime Push) is an outbound webhook
+      call FROM HotelRunner TO the partner's server, which is out of scope for an
+      AsyncAPI document describing HotelRunner's own service surface, so no
+      AsyncAPI document was created.

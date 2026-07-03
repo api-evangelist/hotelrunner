@@ -1,0 +1,122 @@
+aid: hotelrunner
+url: https://raw.githubusercontent.com/api-evangelist/hotelrunner/refs/heads/main/apis.yml
+name: HotelRunner
+kind: company
+description: HotelRunner is a Turkey-founded global hospitality technology platform -
+  a channel manager, central reservation system, booking engine, and website/content
+  manager for hotels, apartments, and travel agencies. Its Custom Apps program exposes
+  a token-authenticated REST API (and a legacy OTA-style XML/SOAP API) so a property's
+  PMS or revenue management system can pull room and rate configuration, push
+  availability/rate/restriction updates to connected OTAs and channels, retrieve
+  and acknowledge reservations, and receive real-time reservation pushes via an
+  HTTP webhook callback.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Hospitality
+- Hotel
+- Channel Manager
+- Booking Engine
+- PMS
+- Travel
+created: '2026-07-03'
+modified: '2026-07-03'
+specificationVersion: '0.19'
+apis:
+- aid: hotelrunner:hotelrunner-inventory-api
+  name: HotelRunner Inventory API
+  tags:
+  - Rooms
+  - Rates
+  - Availability
+  - Restrictions
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.hotelrunner.com/custom-apps/rest-api/inventory/get-room-list
+  baseURL: https://app.hotelrunner.com/api/v2/apps
+  properties:
+  - url: https://developers.hotelrunner.com/custom-apps/rest-api
+    type: Documentation
+  - url: https://developers.hotelrunner.com/custom-apps/rest-api/inventory/get-room-list
+    type: APIReference
+  - url: openapi/hotelrunner-openapi.yml
+    type: OpenAPI
+  description: Retrieves a property's room types and master rate configuration, and
+    pushes availability, price, stop-sale, min/max stay, and CTA/CTD restriction
+    updates - either for a single room over a date range or in bulk across multiple
+    rooms and up to 90 dates per call - scoped to specific sales channels.
+- aid: hotelrunner:hotelrunner-reservations-api
+  name: HotelRunner Reservations API
+  tags:
+  - Reservations
+  - Bookings
+  - Webhooks
+  - Realtime Push
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.hotelrunner.com/custom-apps/rest-api/reservations/retrieve-reservations
+  baseURL: https://app.hotelrunner.com/api/v2/apps
+  properties:
+  - url: https://developers.hotelrunner.com/custom-apps/rest-api/reservations/retrieve-reservations
+    type: APIReference
+  - url: https://developers.hotelrunner.com/custom-apps/rest-api/reservations/realtime-push
+    type: Documentation
+  - url: openapi/hotelrunner-openapi.yml
+    type: OpenAPI
+  - url: collections/hotelrunner.postman_collection.json
+    type: Postman
+  description: Pulls undelivered, modified, or booked reservations (with pagination
+    and date filters), fires confirm/cancel state-change events, and acknowledges
+    delivery of a reservation by its message UID. HotelRunner can also be configured
+    to push new and updated reservations in real time as an outbound HTTP POST
+    webhook to a URL hosted on the connecting PMS.
+- aid: hotelrunner:hotelrunner-channels-api
+  name: HotelRunner Channels API
+  tags:
+  - Channels
+  - Connectivity
+  - OTA
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.hotelrunner.com/custom-apps/rest-api/channels
+  baseURL: https://app.hotelrunner.com/api/v2/apps
+  properties:
+  - url: https://developers.hotelrunner.com/custom-apps/rest-api/channels
+    type: APIReference
+  - url: openapi/hotelrunner-openapi.yml
+    type: OpenAPI
+  description: Lists the OTAs and sales channels connected to a property (Booking.com,
+    Expedia, Airbnb, Online booking engine, and more) along with in-progress,
+    succeeded, and failed update counts for each, so a PMS can monitor channel
+    distribution health.
+- aid: hotelrunner:hotelrunner-reference-data-api
+  name: HotelRunner Reference Data API
+  tags:
+  - Reference Data
+  - Property Kinds
+  - Currencies
+  - Amenities
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.hotelrunner.com/services/get-currencies
+  baseURL: https://app.hotelrunner.com
+  properties:
+  - url: https://developers.hotelrunner.com/services/get-currencies
+    type: Documentation
+  - url: openapi/hotelrunner-openapi.yml
+    type: OpenAPI
+  description: Read-only lookup endpoints backing property setup and integration
+    mapping - property kinds, room kinds, room amenities, property services and
+    facilities, sellable currencies, ISO country codes, and the master list of
+    connectable OTA channel codes.
+common:
+- type: LinkedIn
+  url: https://www.linkedin.com/company/hotelrunner
+- type: Website
+  url: https://hotelrunner.com/
+- type: Documentation
+  url: https://developers.hotelrunner.com/
+- type: Plans
+  url: plans/hotelrunner-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/hotelrunner-rate-limits.yml
+- type: FinOps
+  url: finops/hotelrunner-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

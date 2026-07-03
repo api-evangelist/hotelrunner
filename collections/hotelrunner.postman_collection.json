@@ -1,0 +1,202 @@
+{
+  "info": {
+    "name": "HotelRunner Custom Apps REST API",
+    "description": "Retrieve room/rate inventory, push availability and rate updates, retrieve and acknowledge reservations, fire reservation state-change events, list connected channels, and read setup reference data. Base URL: https://app.hotelrunner.com/api/v2/apps. All requests require token and hr_id query parameters issued from the property's HotelRunner Partners extranet or PMS sandbox.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://app.hotelrunner.com/api/v2/apps", "type": "string" },
+    { "key": "servicesUrl", "value": "https://app.hotelrunner.com", "type": "string" },
+    { "key": "token", "value": "", "type": "string" },
+    { "key": "hr_id", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Inventory",
+      "item": [
+        {
+          "name": "Get room list",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/rooms?token={{token}}&hr_id={{hr_id}}", "host": ["{{baseUrl}}"], "path": ["rooms"], "query": [ { "key": "token", "value": "{{token}}" }, { "key": "hr_id", "value": "{{hr_id}}" } ] },
+            "description": "Returns all rooms/room types and their master rate configuration for the property."
+          }
+        },
+        {
+          "name": "Update room (date range)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rooms/~?token={{token}}&hr_id={{hr_id}}&room_code=HR:1&@rooms.inv_code=HR:1&start_date=2026-08-01&end_date=2026-08-07&availability=5&price=150&stop_sale=0",
+              "host": ["{{baseUrl}}"],
+              "path": ["rooms", "~"],
+              "query": [
+                { "key": "token", "value": "{{token}}" },
+                { "key": "hr_id", "value": "{{hr_id}}" },
+                { "key": "room_code", "value": "HR:1" },
+                { "key": "@rooms.inv_code", "value": "HR:1" },
+                { "key": "start_date", "value": "2026-08-01" },
+                { "key": "end_date", "value": "2026-08-07" },
+                { "key": "availability", "value": "5" },
+                { "key": "price", "value": "150" },
+                { "key": "stop_sale", "value": "0" }
+              ]
+            },
+            "description": "Updates availability, price, stop-sale, and restrictions for a room type across a date range."
+          }
+        },
+        {
+          "name": "Update rooms (bulk, multi-date)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rooms\": [\n    {\n      \"inv_code\": \"HR:1903\",\n      \"channel_codes\": [\"online\"],\n      \"dates\": [\n        {\"date\": \"2026-08-01\", \"availability\": \"4\", \"price\": \"400\"},\n        {\"date\": \"2026-08-02\", \"availability\": \"4\", \"price\": \"400\"}\n      ]\n    }\n  ]\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/rooms/daily?token={{token}}&hr_id={{hr_id}}", "host": ["{{baseUrl}}"], "path": ["rooms", "daily"], "query": [ { "key": "token", "value": "{{token}}" }, { "key": "hr_id", "value": "{{hr_id}}" } ] },
+            "description": "Bulk updates availability, price, and restrictions for one or more rooms across up to 90 dates per call."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reservations",
+      "item": [
+        {
+          "name": "Retrieve reservations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/reservations?token={{token}}&hr_id={{hr_id}}", "host": ["{{baseUrl}}"], "path": ["reservations"], "query": [ { "key": "token", "value": "{{token}}" }, { "key": "hr_id", "value": "{{hr_id}}" } ] },
+            "description": "Lists undelivered reservations by default; supports date, pagination, modified, and booked filters."
+          }
+        },
+        {
+          "name": "Confirm a reservation",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservations/fire?token={{token}}&hr_id={{hr_id}}&hr_number=R387266425&event=confirm",
+              "host": ["{{baseUrl}}"],
+              "path": ["reservations", "fire"],
+              "query": [
+                { "key": "token", "value": "{{token}}" },
+                { "key": "hr_id", "value": "{{hr_id}}" },
+                { "key": "hr_number", "value": "R387266425" },
+                { "key": "event", "value": "confirm" }
+              ]
+            },
+            "description": "Fires a confirm state-change event on a reservation."
+          }
+        },
+        {
+          "name": "Cancel a reservation",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservations/fire?token={{token}}&hr_id={{hr_id}}&hr_number=R387266425&event=cancel&cancel_reason=customer",
+              "host": ["{{baseUrl}}"],
+              "path": ["reservations", "fire"],
+              "query": [
+                { "key": "token", "value": "{{token}}" },
+                { "key": "hr_id", "value": "{{hr_id}}" },
+                { "key": "hr_number", "value": "R387266425" },
+                { "key": "event", "value": "cancel" },
+                { "key": "cancel_reason", "value": "customer" }
+              ]
+            },
+            "description": "Fires a cancel state-change event on a reservation with a required cancel reason."
+          }
+        },
+        {
+          "name": "Confirm reservation delivery",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservations/~?token={{token}}&hr_id={{hr_id}}&message_uid=ac3bd58f73e83cfb671903bf7d20787111&pms_number=PMS3425",
+              "host": ["{{baseUrl}}"],
+              "path": ["reservations", "~"],
+              "query": [
+                { "key": "token", "value": "{{token}}" },
+                { "key": "hr_id", "value": "{{hr_id}}" },
+                { "key": "message_uid", "value": "ac3bd58f73e83cfb671903bf7d20787111" },
+                { "key": "pms_number", "value": "PMS3425" }
+              ]
+            },
+            "description": "Acknowledges delivery of a reservation payload by its message_uid."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Channels",
+      "item": [
+        {
+          "name": "List connected channels",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/infos/connected_channels?token={{token}}&hr_id={{hr_id}}", "host": ["{{baseUrl}}"], "path": ["infos", "connected_channels"], "query": [ { "key": "token", "value": "{{token}}" }, { "key": "hr_id", "value": "{{hr_id}}" } ] },
+            "description": "Lists connected OTA/sales channels with update progress stats."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reference Data",
+      "item": [
+        {
+          "name": "Get property kinds",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{servicesUrl}}/api/property/types.json", "host": ["{{servicesUrl}}"], "path": ["api", "property", "types.json"] },
+            "description": "Returns the id-name mapping of property kinds (Villa, Resort, etc)."
+          }
+        },
+        {
+          "name": "Get room kinds",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{servicesUrl}}/api/room/types.json", "host": ["{{servicesUrl}}"], "path": ["api", "room", "types.json"] },
+            "description": "Returns the id-name mapping of room kinds (Apartment, Bungalow, etc)."
+          }
+        },
+        {
+          "name": "Get currencies",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{servicesUrl}}/api/currency/currencies.json", "host": ["{{servicesUrl}}"], "path": ["api", "currency", "currencies.json"] },
+            "description": "Returns the selectable currency list for a property."
+          }
+        },
+        {
+          "name": "Get country codes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{servicesUrl}}/services/country-codes", "host": ["{{servicesUrl}}"], "path": ["services", "country-codes"] },
+            "description": "Returns the ISO country code list."
+          }
+        },
+        {
+          "name": "Get channel list",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{servicesUrl}}/services/channel-list", "host": ["{{servicesUrl}}"], "path": ["services", "channel-list"] },
+            "description": "Returns the master list of connectable OTA channel codes."
+          }
+        }
+      ]
+    }
+  ]
+}

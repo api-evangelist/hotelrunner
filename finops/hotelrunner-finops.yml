@@ -1,0 +1,83 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: HotelRunner
+providerId: hotelrunner
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Hospitality
+- Hotel
+- Channel Manager
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of HotelRunner spend. HotelRunner is sold as a per-property SaaS
+  subscription with a minimum monthly flat fee plus, on Essential-tier plans, a
+  percentage of monthly realized booking revenue across all connected channels.
+  There is no separate charge for Custom Apps API usage - the API is a delivery
+  mechanism for the subscribed product, not a metered line item. Advanced and
+  Elite tiers are custom-quoted annual/contract pricing. The dominant real cost
+  driver for a multi-property operator is the number of subscribed properties
+  and each property's plan tier and booking volume, not API call volume.
+notes: >-
+  Percentage-of-revenue components are not reconciled to exact dollar amounts
+  here since they scale with each property's booking revenue; verify current
+  published rates on HotelRunner's pricing page and confirm Advanced/Elite
+  quotes directly with HotelRunner sales.
+sources:
+- https://hotelrunner.com/en/pricing/
+- https://developers.hotelrunner.com/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: HotelRunner
+serviceCategory: Hospitality Technology / Channel Management
+billingModel:
+  pricingCategory: Committed and Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: HotelRunner Essential/Advanced/Elite Subscription
+  ServiceCategory: Hospitality Technology
+  ProviderName: HotelRunner
+  PublisherName: HotelRunner
+  InvoiceIssuerName: HotelRunner
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Committed
+meters:
+- name: subscription_fee
+  description: Fixed minimum monthly fee per subscribed property, varying by plan tier (Essential Manage/Sell/Complete).
+  unit: property-month
+  aggregation: sum
+  dimensions:
+  - property
+  - plan
+- name: booking_revenue_percentage
+  description: Percentage-of-revenue charge (0.75%-1.25% depending on plan) applied to monthly realized booking revenue across connected channels.
+  unit: USD
+  aggregation: sum
+  dimensions:
+  - property
+  - plan
+  - channel
+- name: advanced_elite_contract
+  description: Custom-quoted annual/contract fee for Advanced or Elite tier properties.
+  unit: contract
+  aggregation: sum
+  dimensions:
+  - property
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
