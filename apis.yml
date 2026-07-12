@@ -105,6 +105,10 @@ apis:
     facilities, sellable currencies, ISO country codes, and the master list of
     connectable OTA channel codes.
 common:
+- type: DomainSecurity
+  url: security/hotelrunner-domain-security.yml
+- type: Authentication
+  url: authentication/hotelrunner-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/hotelrunner
 - type: Website
@@ -117,6 +121,8 @@ common:
   url: rate-limits/hotelrunner-rate-limits.yml
 - type: FinOps
   url: finops/hotelrunner-finops.yml
+- url: https://hotelrunner.com/en/blog/
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

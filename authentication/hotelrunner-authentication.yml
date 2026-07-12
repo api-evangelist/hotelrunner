@@ -1,0 +1,18 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/hotelrunner-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - query
+schemes:
+- name: tokenAuth
+  type: apiKey
+  in: query
+  parameter: token
+  description: API token issued in the property's HotelRunner Partners extranet ("My Property"
+    section) or PMS sandbox account. Always sent together with the hr_id query parameter identifying
+    the property.
+  sources:
+  - openapi/hotelrunner-openapi.yml
