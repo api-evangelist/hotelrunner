@@ -105,6 +105,8 @@ apis:
     facilities, sellable currencies, ISO country codes, and the master list of
     connectable OTA channel codes.
 common:
+- type: AgenticAccess
+  url: agentic-access/hotelrunner-agentic-access.yml
 - type: DomainSecurity
   url: security/hotelrunner-domain-security.yml
 - type: Authentication
