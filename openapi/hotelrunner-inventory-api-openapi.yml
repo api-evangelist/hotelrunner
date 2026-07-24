@@ -1,0 +1,326 @@
+openapi: 3.0.3
+info:
+  title: HotelRunner Custom Apps REST Channels Inventory API
+  description: The HotelRunner Custom Apps REST API lets a property's PMS or revenue management system connect to HotelRunner - retrieve room/rate configuration, push availability and rate updates, retrieve and acknowledge reservations, fire reservation state-change events, list connected sales channels, and read setup reference data. All Custom Apps endpoints require `token` and `hr_id` query-string credentials issued from the property's HotelRunner Partners extranet ("My Property" section, or a sandbox test property for PMS partners). HotelRunner can also push new and updated reservations to a partner-hosted HTTPS URL as a webhook (see the Realtime Push documentation) - this is not modeled as an OpenAPI path because HotelRunner is the caller, not the server, for that flow. Endpoints and fields below are transcribed from HotelRunner's public developer docs at developers.hotelrunner.com; fields not explicitly shown in an example response are marked as modeled/inferred in comments where relevant.
+  version: v2
+  contact:
+    name: HotelRunner
+    url: https://developers.hotelrunner.com/
+servers:
+- url: https://app.hotelrunner.com/api/v2/apps
+  description: Custom Apps REST API (production)
+- url: https://app.hotelrunner.com
+  description: Public reference/services data endpoints
+security:
+- tokenAuth: []
+tags:
+- name: Inventory
+  description: Room types, master rates, availability, and restrictions.
+paths:
+  /rooms:
+    get:
+      operationId: listRooms
+      tags:
+      - Inventory
+      summary: Get room list
+      description: Returns all rooms/room types and their master rate configuration for the property identified by hr_id, including which channels each room is connected to and whether availability, restrictions, and price updates are enabled for it.
+      parameters:
+      - $ref: '#/components/parameters/Token'
+      - $ref: '#/components/parameters/HrId'
+      responses:
+        '200':
+          description: A list of rooms.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rooms:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Room'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /rooms/~:
+    put:
+      operationId: updateRoomDateRange
+      tags:
+      - Inventory
+      summary: Update room availability/rates/restrictions over a date range
+      description: Updates availability, price, stop-sale, min/max stay, and CTA/CTD restrictions for a single room type's master rate across a start/end date range, optionally scoped to specific weekdays and channel codes. Parameters are passed as query-string values, not a JSON body.
+      parameters:
+      - $ref: '#/components/parameters/Token'
+      - $ref: '#/components/parameters/HrId'
+      - name: room_code
+        in: query
+        required: true
+        description: The room code to update.
+        schema:
+          type: string
+      - name: '@rooms.inv_code'
+        in: query
+        required: true
+        description: Inventory code to update. Only updates the room type and its master rate.
+        schema:
+          type: string
+      - name: '@rooms.rate_code'
+        in: query
+        required: false
+        description: Rate code to update when price_update is enabled for the room.
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: end_date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: availability
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: price
+        in: query
+        required: false
+        schema:
+          type: number
+      - name: stop_sale
+        in: query
+        required: false
+        schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+      - name: cta
+        in: query
+        required: false
+        description: Closed to arrival.
+        schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+      - name: ctd
+        in: query
+        required: false
+        description: Closed to departure.
+        schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+      - name: min_stay
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: max_stay
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: days
+        in: query
+        required: false
+        description: Weekday filter, Sunday=0 through Saturday=6.
+        schema:
+          type: array
+          items:
+            type: integer
+            minimum: 0
+            maximum: 6
+      - name: channel_codes
+        in: query
+        required: false
+        description: Restrict the update to specific channel codes.
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: Update accepted or queued for retry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /rooms/daily:
+    put:
+      operationId: updateRoomsMultiDates
+      tags:
+      - Inventory
+      summary: Bulk update rooms across multiple dates
+      description: Updates availability, price, and restrictions for one or more rooms across up to 90 explicit dates per call, optionally scoped to specific channel codes per room.
+      parameters:
+      - $ref: '#/components/parameters/Token'
+      - $ref: '#/components/parameters/HrId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rooms:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - inv_code
+                    - dates
+                    properties:
+                      inv_code:
+                        type: string
+                      channel_codes:
+                        type: array
+                        items:
+                          type: string
+                      dates:
+                        type: array
+                        maxItems: 90
+                        items:
+                          type: object
+                          required:
+                          - date
+                          properties:
+                            date:
+                              type: string
+                              format: date
+                            availability:
+                              type: string
+                            price:
+                              type: string
+                            min_stay:
+                              type: integer
+                            max_stay:
+                              type: integer
+                            stop_sale:
+                              type: integer
+                              enum:
+                              - 0
+                              - 1
+                            cta:
+                              type: integer
+                              enum:
+                              - 0
+                              - 1
+                            ctd:
+                              type: integer
+                              enum:
+                              - 0
+                              - 1
+      responses:
+        '200':
+          description: Update accepted, queued for retry, or partially failed.
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/UpdateResult'
+                - type: object
+                  properties:
+                    errors:
+                      type: array
+                      items:
+                        type: object
+                        additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid token/hr_id.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StatusResult'
+  parameters:
+    Token:
+      name: token
+      in: query
+      required: true
+      description: Authentication token for the property.
+      schema:
+        type: string
+    HrId:
+      name: hr_id
+      in: query
+      required: true
+      description: HotelRunner property identifier.
+      schema:
+        type: string
+  schemas:
+    UpdateResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - try_again
+        transaction_id:
+          type: string
+    Room:
+      type: object
+      properties:
+        rate_code:
+          type: string
+        inv_code:
+          type: string
+        availability_update:
+          type: boolean
+        restrictions_update:
+          type: boolean
+        price_update:
+          type: boolean
+        pricing_type:
+          type: string
+          example: guest_based
+        name:
+          type: string
+        description:
+          type: string
+        policy:
+          type: string
+        room_capacity:
+          type: integer
+        adult_capacity:
+          type: integer
+        is_master:
+          type: boolean
+        shared:
+          type: boolean
+        channel_codes:
+          type: array
+          items:
+            type: string
+        sales_currency:
+          type: string
+        sell_online:
+          type: boolean
+    StatusResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - error
+        message:
+          type: string
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      in: query
+      name: token
+      description: API token issued in the property's HotelRunner Partners extranet ("My Property" section) or PMS sandbox account. Always sent together with the hr_id query parameter identifying the property.

@@ -1,0 +1,146 @@
+openapi: 3.0.3
+info:
+  title: HotelRunner Custom Apps REST Channels Reference Data API
+  description: The HotelRunner Custom Apps REST API lets a property's PMS or revenue management system connect to HotelRunner - retrieve room/rate configuration, push availability and rate updates, retrieve and acknowledge reservations, fire reservation state-change events, list connected sales channels, and read setup reference data. All Custom Apps endpoints require `token` and `hr_id` query-string credentials issued from the property's HotelRunner Partners extranet ("My Property" section, or a sandbox test property for PMS partners). HotelRunner can also push new and updated reservations to a partner-hosted HTTPS URL as a webhook (see the Realtime Push documentation) - this is not modeled as an OpenAPI path because HotelRunner is the caller, not the server, for that flow. Endpoints and fields below are transcribed from HotelRunner's public developer docs at developers.hotelrunner.com; fields not explicitly shown in an example response are marked as modeled/inferred in comments where relevant.
+  version: v2
+  contact:
+    name: HotelRunner
+    url: https://developers.hotelrunner.com/
+servers:
+- url: https://app.hotelrunner.com/api/v2/apps
+  description: Custom Apps REST API (production)
+- url: https://app.hotelrunner.com
+  description: Public reference/services data endpoints
+security:
+- tokenAuth: []
+tags:
+- name: Reference Data
+  description: Read-only lookup data used for property and integration setup.
+paths:
+  /api/property/types.json:
+    get:
+      operationId: getPropertyKinds
+      tags:
+      - Reference Data
+      summary: Get property kinds
+      description: Returns the id-name mapping of property kinds (Villa, Resort, etc).
+      responses:
+        '200':
+          description: Property kind list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdNameList'
+  /api/room/types.json:
+    get:
+      operationId: getRoomKinds
+      tags:
+      - Reference Data
+      summary: Get room kinds
+      description: Returns the id-name mapping of room kinds (Apartment, Bungalow, etc).
+      responses:
+        '200':
+          description: Room kind list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdNameList'
+  /api/currency/currencies.json:
+    get:
+      operationId: getCurrencies
+      tags:
+      - Reference Data
+      summary: Get currencies
+      description: Returns the selectable currency list for a property.
+      responses:
+        '200':
+          description: Currency list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdNameList'
+  /services/get-property-services:
+    get:
+      operationId: getPropertyServices
+      tags:
+      - Reference Data
+      summary: Get property services
+      description: Returns the id-name mapping of general property services shown on a property's listing. Path documented under HotelRunner's Services navigation; exact JSON response is modeled on the sibling reference endpoints.
+      responses:
+        '200':
+          description: Property service list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdNameList'
+  /services/get-property-facilities:
+    get:
+      operationId: getPropertyFacilities
+      tags:
+      - Reference Data
+      summary: Get property facilities
+      description: Returns the id-name mapping of property facilities. Path documented under HotelRunner's Services navigation; exact JSON response is modeled on the sibling reference endpoints.
+      responses:
+        '200':
+          description: Property facility list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdNameList'
+  /services/get-room-amenities:
+    get:
+      operationId: getRoomAmenities
+      tags:
+      - Reference Data
+      summary: Get room amenities
+      description: Returns the id-name mapping of room amenities. Path documented under HotelRunner's Services navigation; exact JSON response is modeled on the sibling reference endpoints.
+      responses:
+        '200':
+          description: Room amenity list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdNameList'
+  /services/country-codes:
+    get:
+      operationId: getCountryCodes
+      tags:
+      - Reference Data
+      summary: Get country codes
+      description: Returns the ISO country code list used across property and guest setup.
+      responses:
+        '200':
+          description: Country code list.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /services/channel-list:
+    get:
+      operationId: getChannelList
+      tags:
+      - Reference Data
+      summary: Get channel list
+      description: Returns the master list of OTA / sales channel codes HotelRunner can connect a property to, independent of which channels a given property currently has enabled.
+      responses:
+        '200':
+          description: Channel code list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdNameList'
+components:
+  schemas:
+    IdNameList:
+      type: object
+      additionalProperties:
+        type: string
+      description: Modeled as an id-to-name map per HotelRunner's own description of these endpoints ("id-name mapping"); HotelRunner's docs did not show a literal example payload for this endpoint.
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      in: query
+      name: token
+      description: API token issued in the property's HotelRunner Partners extranet ("My Property" section) or PMS sandbox account. Always sent together with the hr_id query parameter identifying the property.

@@ -1,0 +1,233 @@
+openapi: 3.0.3
+info:
+  title: HotelRunner Custom Apps REST Channels Reservations API
+  description: The HotelRunner Custom Apps REST API lets a property's PMS or revenue management system connect to HotelRunner - retrieve room/rate configuration, push availability and rate updates, retrieve and acknowledge reservations, fire reservation state-change events, list connected sales channels, and read setup reference data. All Custom Apps endpoints require `token` and `hr_id` query-string credentials issued from the property's HotelRunner Partners extranet ("My Property" section, or a sandbox test property for PMS partners). HotelRunner can also push new and updated reservations to a partner-hosted HTTPS URL as a webhook (see the Realtime Push documentation) - this is not modeled as an OpenAPI path because HotelRunner is the caller, not the server, for that flow. Endpoints and fields below are transcribed from HotelRunner's public developer docs at developers.hotelrunner.com; fields not explicitly shown in an example response are marked as modeled/inferred in comments where relevant.
+  version: v2
+  contact:
+    name: HotelRunner
+    url: https://developers.hotelrunner.com/
+servers:
+- url: https://app.hotelrunner.com/api/v2/apps
+  description: Custom Apps REST API (production)
+- url: https://app.hotelrunner.com
+  description: Public reference/services data endpoints
+security:
+- tokenAuth: []
+tags:
+- name: Reservations
+  description: Retrieve, confirm, cancel, and acknowledge reservations.
+paths:
+  /reservations:
+    get:
+      operationId: listReservations
+      tags:
+      - Reservations
+      summary: Retrieve reservations
+      description: Lists reservations for the property, defaulting to undelivered reservations from the last 10 days. Supports pagination and filters for a specific reservation number, modified reservations, and booked (created) reservations.
+      parameters:
+      - $ref: '#/components/parameters/Token'
+      - $ref: '#/components/parameters/HrId'
+      - name: from_date
+        in: query
+        description: Format YYYY-MM-DD. Defaults to 10 days before today.
+        schema:
+          type: string
+          format: date
+      - name: from_last_update_date
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: per_page
+        in: query
+        schema:
+          type: integer
+          default: 10
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - name: reservation_number
+        in: query
+        schema:
+          type: string
+      - name: undelivered
+        in: query
+        schema:
+          type: boolean
+          default: true
+      - name: modified
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - name: booked
+        in: query
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: A page of reservations.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reservations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Reservation'
+                  count:
+                    type: integer
+                  current_page:
+                    type: integer
+                  pages:
+                    type: integer
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reservations/fire:
+    put:
+      operationId: updateReservationState
+      tags:
+      - Reservations
+      summary: Confirm or cancel a reservation
+      description: Fires a state-change event on a reservation identified by its HotelRunner reservation number (hr_number). Use event=confirm to confirm and event=cancel to cancel, supplying a cancel_reason when cancelling.
+      parameters:
+      - $ref: '#/components/parameters/Token'
+      - $ref: '#/components/parameters/HrId'
+      - name: hr_number
+        in: query
+        required: true
+        description: The reservation code in HotelRunner.
+        schema:
+          type: string
+      - name: event
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - confirm
+          - cancel
+      - name: cancel_reason
+        in: query
+        required: false
+        description: Required when event=cancel.
+        schema:
+          type: string
+          enum:
+          - customer
+          - no_room
+          - no_show
+          - invalid_price
+      responses:
+        '200':
+          description: State change result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reservations/~:
+    put:
+      operationId: confirmReservationDelivery
+      tags:
+      - Reservations
+      summary: Confirm reservation delivery
+      description: Acknowledges that a reservation delivered via the retrieve/realtime push flow was received and processed by the PMS, identified by the message_uid found at the end of the reservation's JSON payload.
+      parameters:
+      - $ref: '#/components/parameters/Token'
+      - $ref: '#/components/parameters/HrId'
+      - name: message_uid
+        in: query
+        required: true
+        description: Unique ID of the reservation delivery message.
+        schema:
+          type: string
+      - name: pms_number
+        in: query
+        required: false
+        description: The reservation number in the connecting PMS.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Acknowledgement result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Reservation:
+      type: object
+      properties:
+        reservation_id:
+          type: integer
+        hr_number:
+          type: string
+        channel:
+          type: string
+        state:
+          type: string
+          example: reserved
+        guest:
+          type: string
+        total:
+          type: number
+        currency:
+          type: string
+        checkin_date:
+          type: string
+          format: date
+        checkout_date:
+          type: string
+          format: date
+        message_uid:
+          type: string
+          description: Unique ID of the delivery message, used with confirmReservationDelivery. Documented as appearing at the end of the reservation JSON; not shown in HotelRunner's abbreviated example response (modeled).
+      x-endpointsModeled:
+      - message_uid field position/shape
+    StatusResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - error
+        message:
+          type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid token/hr_id.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StatusResult'
+  parameters:
+    Token:
+      name: token
+      in: query
+      required: true
+      description: Authentication token for the property.
+      schema:
+        type: string
+    HrId:
+      name: hr_id
+      in: query
+      required: true
+      description: HotelRunner property identifier.
+      schema:
+        type: string
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      in: query
+      name: token
+      description: API token issued in the property's HotelRunner Partners extranet ("My Property" section) or PMS sandbox account. Always sent together with the hr_id query parameter identifying the property.
