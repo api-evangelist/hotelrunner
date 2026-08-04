@@ -1,0 +1,20 @@
+{
+  "provider": "hotelrunner",
+  "sources": [
+    "hotelrunner-channels-api-openapi.yml",
+    "hotelrunner-inventory-api-openapi.yml",
+    "hotelrunner-reference-data-api-openapi.yml",
+    "hotelrunner-reservations-api-openapi.yml"
+  ],
+  "outputs": [
+    "hotelrunner-channels-api-openapi.yml",
+    "hotelrunner-inventory-api-openapi.yml",
+    "hotelrunner-reference-data-api-openapi.yml",
+    "hotelrunner-reservations-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
