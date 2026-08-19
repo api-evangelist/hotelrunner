@@ -33,7 +33,7 @@ tags:
 - Travel
 created: '2026-07-03'
 modified: '2026-07-03'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: hotelrunner:hotelrunner-channels-api
   name: HotelRunner Channels API
