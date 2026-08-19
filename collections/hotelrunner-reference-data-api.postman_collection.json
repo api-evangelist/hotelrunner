@@ -1,0 +1,671 @@
+{
+  "item": [
+    {
+      "id": "4efea7d8-5eb1-4b0e-8dbd-3dd45c247c33",
+      "name": "Reference Data",
+      "description": {
+        "content": "Read-only lookup data used for property and integration setup.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a043b78a-c3c3-4058-b0ba-2245b53bb831",
+          "name": "Get property kinds",
+          "request": {
+            "name": "Get property kinds",
+            "description": {
+              "content": "Returns the id-name mapping of property kinds (Villa, Resort, etc).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "property",
+                "types.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7ca8b757-3c1f-483d-a3ce-83684ef35939",
+              "name": "Property kind list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "property",
+                    "types.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6dfe76a7-5aa5-4e89-a09a-b349602721b7",
+          "name": "Get room kinds",
+          "request": {
+            "name": "Get room kinds",
+            "description": {
+              "content": "Returns the id-name mapping of room kinds (Apartment, Bungalow, etc).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "room",
+                "types.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "777d0158-614f-4fe0-b6e1-90296a27f76f",
+              "name": "Room kind list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "room",
+                    "types.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e57e4fcc-e533-4b78-9610-15978f6b013e",
+          "name": "Get currencies",
+          "request": {
+            "name": "Get currencies",
+            "description": {
+              "content": "Returns the selectable currency list for a property.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "currency",
+                "currencies.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e06e029b-6928-4f76-b4d9-7c165ca39201",
+              "name": "Currency list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "currency",
+                    "currencies.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "06b83c5b-6d64-4607-9b9e-87539780ff84",
+          "name": "Get property services",
+          "request": {
+            "name": "Get property services",
+            "description": {
+              "content": "Returns the id-name mapping of general property services shown on a property's listing. Path documented under HotelRunner's Services navigation; exact JSON response is modeled on the sibling reference endpoints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "get-property-services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b4446116-74b6-45fc-874f-0f92d6104e7d",
+              "name": "Property service list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "get-property-services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f994d860-1d55-49d7-877c-5b15092677fe",
+          "name": "Get property facilities",
+          "request": {
+            "name": "Get property facilities",
+            "description": {
+              "content": "Returns the id-name mapping of property facilities. Path documented under HotelRunner's Services navigation; exact JSON response is modeled on the sibling reference endpoints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "get-property-facilities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0961582c-4188-4946-b4f0-b35d253af3cd",
+              "name": "Property facility list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "get-property-facilities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d59f8ff7-4f89-408f-a6be-d0e3bb863010",
+          "name": "Get room amenities",
+          "request": {
+            "name": "Get room amenities",
+            "description": {
+              "content": "Returns the id-name mapping of room amenities. Path documented under HotelRunner's Services navigation; exact JSON response is modeled on the sibling reference endpoints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "get-room-amenities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1d82000f-6800-44e6-a7a9-90b27dc3d4c5",
+              "name": "Room amenity list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "get-room-amenities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "560bf799-9b58-4a56-98cc-2c70767a4dcd",
+          "name": "Get country codes",
+          "request": {
+            "name": "Get country codes",
+            "description": {
+              "content": "Returns the ISO country code list used across property and guest setup.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "country-codes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9be49aca-b495-4c5f-ac16-d5f2be91a97e",
+              "name": "Country code list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "country-codes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\",\n  \"key_1\": \"string\",\n  \"key_2\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "831a54fb-bd49-474f-a9e0-615f237296a7",
+          "name": "Get channel list",
+          "request": {
+            "name": "Get channel list",
+            "description": {
+              "content": "Returns the master list of OTA / sales channel codes HotelRunner can connect a property to, independent of which channels a given property currently has enabled.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "channel-list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "899765cf-fafe-431f-81f4-2d682ece74a6",
+              "name": "Channel code list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "channel-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.hotelrunner.com/api/v2/apps",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b6ec5551-6df1-4420-b5f3-1651e6e7a1d8",
+    "name": "HotelRunner Custom Apps REST Channels Reference Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The HotelRunner Custom Apps REST API lets a property's PMS or revenue management system connect to HotelRunner - retrieve room/rate configuration, push availability and rate updates, retrieve and acknowledge reservations, fire reservation state-change events, list connected sales channels, and read setup reference data. All Custom Apps endpoints require `token` and `hr_id` query-string credentials issued from the property's HotelRunner Partners extranet (\"My Property\" section, or a sandbox test property for PMS partners). HotelRunner can also push new and updated reservations to a partner-hosted HTTPS URL as a webhook (see the Realtime Push documentation) - this is not modeled as an OpenAPI path because HotelRunner is the caller, not the server, for that flow. Endpoints and fields below are transcribed from HotelRunner's public developer docs at developers.hotelrunner.com; fields not explicitly shown in an example response are marked as modeled/inferred in comments where relevant.\n\nContact Support:\n Name: HotelRunner",
+      "type": "text/plain"
+    }
+  }
+}

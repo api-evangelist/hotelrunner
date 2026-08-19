@@ -1,0 +1,662 @@
+{
+  "item": [
+    {
+      "id": "97f5b046-6873-455d-b0e5-af595a1d23be",
+      "name": "Reservations",
+      "description": {
+        "content": "Retrieve, confirm, cancel, and acknowledge reservations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ea8fc605-a0f2-44a3-9e88-3ceaaad8d746",
+          "name": "Retrieve reservations",
+          "request": {
+            "name": "Retrieve reservations",
+            "description": {
+              "content": "Lists reservations for the property, defaulting to undelivered reservations from the last 10 days. Supports pagination and filters for a specific reservation number, modified reservations, and booked (created) reservations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reservations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token for the property."
+                },
+                {
+                  "disabled": false,
+                  "key": "hr_id",
+                  "value": "<string>",
+                  "description": "(Required) HotelRunner property identifier."
+                },
+                {
+                  "disabled": false,
+                  "key": "from_date",
+                  "value": "<date>",
+                  "description": "Format YYYY-MM-DD. Defaults to 10 days before today."
+                },
+                {
+                  "disabled": false,
+                  "key": "from_last_update_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "reservation_number",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "undelivered",
+                  "value": "true"
+                },
+                {
+                  "disabled": false,
+                  "key": "modified",
+                  "value": "false"
+                },
+                {
+                  "disabled": false,
+                  "key": "booked",
+                  "value": "false"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "03552ed9-4324-4922-a6e1-b26ed3e136de",
+              "name": "A page of reservations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reservations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hr_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "from_last_update_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "reservation_number",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "undelivered",
+                      "value": "true"
+                    },
+                    {
+                      "key": "modified",
+                      "value": "false"
+                    },
+                    {
+                      "key": "booked",
+                      "value": "false"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reservations\": [\n    {\n      \"reservation_id\": 9997,\n      \"hr_number\": \"string\",\n      \"channel\": \"string\",\n      \"state\": \"reserved\",\n      \"guest\": \"string\",\n      \"total\": 7233.301884861035,\n      \"currency\": \"string\",\n      \"checkin_date\": \"1952-06-29\",\n      \"checkout_date\": \"1985-08-12\",\n      \"message_uid\": \"string\"\n    },\n    {\n      \"reservation_id\": 3241,\n      \"hr_number\": \"string\",\n      \"channel\": \"string\",\n      \"state\": \"reserved\",\n      \"guest\": \"string\",\n      \"total\": 3644.656853593171,\n      \"currency\": \"string\",\n      \"checkin_date\": \"1960-11-06\",\n      \"checkout_date\": \"2012-11-11\",\n      \"message_uid\": \"string\"\n    }\n  ],\n  \"count\": 2096,\n  \"current_page\": 6561,\n  \"pages\": 918\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa62ec5b-f61d-4501-9421-0e89d67aa475",
+              "name": "Missing or invalid token/hr_id.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reservations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hr_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "from_last_update_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "reservation_number",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "undelivered",
+                      "value": "true"
+                    },
+                    {
+                      "key": "modified",
+                      "value": "false"
+                    },
+                    {
+                      "key": "booked",
+                      "value": "false"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f44a2a37-9ecc-4bec-93e1-74910a615d82",
+          "name": "Confirm or cancel a reservation",
+          "request": {
+            "name": "Confirm or cancel a reservation",
+            "description": {
+              "content": "Fires a state-change event on a reservation identified by its HotelRunner reservation number (hr_number). Use event=confirm to confirm and event=cancel to cancel, supplying a cancel_reason when cancelling.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reservations",
+                "fire"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token for the property."
+                },
+                {
+                  "disabled": false,
+                  "key": "hr_id",
+                  "value": "<string>",
+                  "description": "(Required) HotelRunner property identifier."
+                },
+                {
+                  "disabled": false,
+                  "key": "hr_number",
+                  "value": "<string>",
+                  "description": "(Required) The reservation code in HotelRunner."
+                },
+                {
+                  "disabled": false,
+                  "key": "event",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "cancel_reason",
+                  "value": "<string>",
+                  "description": "Required when event=cancel."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b694deb0-ed48-4c20-9ace-65e6fcf14e62",
+              "name": "State change result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reservations",
+                    "fire"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hr_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hr_number",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cancel_reason",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "916714a1-d551-4419-8177-ac7e55ebb5f2",
+              "name": "Missing or invalid token/hr_id.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reservations",
+                    "fire"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hr_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hr_number",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cancel_reason",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8f68f3c-650e-40e7-96c2-9972ec7b50ff",
+          "name": "Confirm reservation delivery",
+          "request": {
+            "name": "Confirm reservation delivery",
+            "description": {
+              "content": "Acknowledges that a reservation delivered via the retrieve/realtime push flow was received and processed by the PMS, identified by the message_uid found at the end of the reservation's JSON payload.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reservations",
+                "~"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token for the property."
+                },
+                {
+                  "disabled": false,
+                  "key": "hr_id",
+                  "value": "<string>",
+                  "description": "(Required) HotelRunner property identifier."
+                },
+                {
+                  "disabled": false,
+                  "key": "message_uid",
+                  "value": "<string>",
+                  "description": "(Required) Unique ID of the reservation delivery message."
+                },
+                {
+                  "disabled": false,
+                  "key": "pms_number",
+                  "value": "<string>",
+                  "description": "The reservation number in the connecting PMS."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "484884fa-ef1e-4e4f-a050-f1a881f9752f",
+              "name": "Acknowledgement result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reservations",
+                    "~"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hr_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "message_uid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pms_number",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e48373d-e0e6-4652-bda4-f03b75bd9e62",
+              "name": "Missing or invalid token/hr_id.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reservations",
+                    "~"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hr_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "message_uid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pms_number",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.hotelrunner.com/api/v2/apps",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "959057fa-3f53-48e6-b3cc-8e30987eed0c",
+    "name": "HotelRunner Custom Apps REST Channels Reservations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The HotelRunner Custom Apps REST API lets a property's PMS or revenue management system connect to HotelRunner - retrieve room/rate configuration, push availability and rate updates, retrieve and acknowledge reservations, fire reservation state-change events, list connected sales channels, and read setup reference data. All Custom Apps endpoints require `token` and `hr_id` query-string credentials issued from the property's HotelRunner Partners extranet (\"My Property\" section, or a sandbox test property for PMS partners). HotelRunner can also push new and updated reservations to a partner-hosted HTTPS URL as a webhook (see the Realtime Push documentation) - this is not modeled as an OpenAPI path because HotelRunner is the caller, not the server, for that flow. Endpoints and fields below are transcribed from HotelRunner's public developer docs at developers.hotelrunner.com; fields not explicitly shown in an example response are marked as modeled/inferred in comments where relevant.\n\nContact Support:\n Name: HotelRunner",
+      "type": "text/plain"
+    }
+  }
+}

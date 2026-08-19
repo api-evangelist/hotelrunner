@@ -1,0 +1,182 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HotelRunner Custom Apps REST Channels Inventory API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inventory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get room list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.hotelrunner.com/api/v2/apps/rooms",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token for the property."
+              },
+              {
+                "name": "hr_id",
+                "value": "",
+                "type": "query",
+                "description": "HotelRunner property identifier."
+              }
+            ]
+          },
+          "docs": "Returns all rooms/room types and their master rate configuration for the property identified by hr_id, including which channels each room is connected to and whether availability, restrictions, and price updates are enabled for it."
+        },
+        {
+          "info": {
+            "name": "Update room availability/rates/restrictions over a date range",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.hotelrunner.com/api/v2/apps/rooms/~",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token for the property."
+              },
+              {
+                "name": "hr_id",
+                "value": "",
+                "type": "query",
+                "description": "HotelRunner property identifier."
+              },
+              {
+                "name": "room_code",
+                "value": "",
+                "type": "query",
+                "description": "The room code to update."
+              },
+              {
+                "name": "@rooms.inv_code",
+                "value": "",
+                "type": "query",
+                "description": "Inventory code to update. Only updates the room type and its master rate."
+              },
+              {
+                "name": "@rooms.rate_code",
+                "value": "",
+                "type": "query",
+                "description": "Rate code to update when price_update is enabled for the room."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "availability",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "price",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "stop_sale",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cta",
+                "value": "",
+                "type": "query",
+                "description": "Closed to arrival."
+              },
+              {
+                "name": "ctd",
+                "value": "",
+                "type": "query",
+                "description": "Closed to departure."
+              },
+              {
+                "name": "min_stay",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "max_stay",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "days",
+                "value": "",
+                "type": "query",
+                "description": "Weekday filter, Sunday=0 through Saturday=6."
+              },
+              {
+                "name": "channel_codes",
+                "value": "",
+                "type": "query",
+                "description": "Restrict the update to specific channel codes."
+              }
+            ]
+          },
+          "docs": "Updates availability, price, stop-sale, min/max stay, and CTA/CTD restrictions for a single room type's master rate across a start/end date range, optionally scoped to specific weekdays and channel codes. Parameters are passed as query-string values, not a JSON body."
+        },
+        {
+          "info": {
+            "name": "Bulk update rooms across multiple dates",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.hotelrunner.com/api/v2/apps/rooms/daily",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token for the property."
+              },
+              {
+                "name": "hr_id",
+                "value": "",
+                "type": "query",
+                "description": "HotelRunner property identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates availability, price, and restrictions for one or more rooms across up to 90 explicit dates per call, optionally scoped to specific channel codes per room."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

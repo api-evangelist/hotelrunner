@@ -1,0 +1,735 @@
+{
+  "item": [
+    {
+      "id": "1852533f-6ac0-41d2-b19c-a6fa8fed9773",
+      "name": "Inventory",
+      "description": {
+        "content": "Room types, master rates, availability, and restrictions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "de5adf0c-9b4b-4781-bdec-feddbadfe922",
+          "name": "Get room list",
+          "request": {
+            "name": "Get room list",
+            "description": {
+              "content": "Returns all rooms/room types and their master rate configuration for the property identified by hr_id, including which channels each room is connected to and whether availability, restrictions, and price updates are enabled for it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rooms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token for the property."
+                },
+                {
+                  "disabled": false,
+                  "key": "hr_id",
+                  "value": "<string>",
+                  "description": "(Required) HotelRunner property identifier."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4642b21b-ec51-46fa-8213-0f41ca708776",
+              "name": "A list of rooms.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rooms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hr_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rooms\": [\n    {\n      \"rate_code\": \"string\",\n      \"inv_code\": \"string\",\n      \"availability_update\": false,\n      \"restrictions_update\": true,\n      \"price_update\": true,\n      \"pricing_type\": \"guest_based\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"policy\": \"string\",\n      \"room_capacity\": 5832,\n      \"adult_capacity\": 626,\n      \"is_master\": false,\n      \"shared\": false,\n      \"channel_codes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sales_currency\": \"string\",\n      \"sell_online\": true\n    },\n    {\n      \"rate_code\": \"string\",\n      \"inv_code\": \"string\",\n      \"availability_update\": false,\n      \"restrictions_update\": false,\n      \"price_update\": true,\n      \"pricing_type\": \"guest_based\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"policy\": \"string\",\n      \"room_capacity\": 8089,\n      \"adult_capacity\": 9559,\n      \"is_master\": false,\n      \"shared\": false,\n      \"channel_codes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sales_currency\": \"string\",\n      \"sell_online\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf014bea-503c-40d0-a739-455341be5c80",
+              "name": "Missing or invalid token/hr_id.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rooms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hr_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bbe7d2eb-adb0-43d0-9121-62deda35dee6",
+          "name": "Update room availability/rates/restrictions over a date range",
+          "request": {
+            "name": "Update room availability/rates/restrictions over a date range",
+            "description": {
+              "content": "Updates availability, price, stop-sale, min/max stay, and CTA/CTD restrictions for a single room type's master rate across a start/end date range, optionally scoped to specific weekdays and channel codes. Parameters are passed as query-string values, not a JSON body.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rooms",
+                "~"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token for the property."
+                },
+                {
+                  "disabled": false,
+                  "key": "hr_id",
+                  "value": "<string>",
+                  "description": "(Required) HotelRunner property identifier."
+                },
+                {
+                  "disabled": false,
+                  "key": "room_code",
+                  "value": "<string>",
+                  "description": "(Required) The room code to update."
+                },
+                {
+                  "disabled": false,
+                  "key": "@rooms.inv_code",
+                  "value": "<string>",
+                  "description": "(Required) Inventory code to update. Only updates the room type and its master rate."
+                },
+                {
+                  "disabled": false,
+                  "key": "@rooms.rate_code",
+                  "value": "<string>",
+                  "description": "Rate code to update when price_update is enabled for the room."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "availability",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "price",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "stop_sale",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "cta",
+                  "value": "<integer>",
+                  "description": "Closed to arrival."
+                },
+                {
+                  "disabled": false,
+                  "key": "ctd",
+                  "value": "<integer>",
+                  "description": "Closed to departure."
+                },
+                {
+                  "disabled": false,
+                  "key": "min_stay",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "max_stay",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "days",
+                  "value": "<integer>",
+                  "description": "Weekday filter, Sunday=0 through Saturday=6."
+                },
+                {
+                  "disabled": false,
+                  "key": "days",
+                  "value": "<integer>",
+                  "description": "Weekday filter, Sunday=0 through Saturday=6."
+                },
+                {
+                  "disabled": false,
+                  "key": "channel_codes",
+                  "value": "<string>",
+                  "description": "Restrict the update to specific channel codes."
+                },
+                {
+                  "disabled": false,
+                  "key": "channel_codes",
+                  "value": "<string>",
+                  "description": "Restrict the update to specific channel codes."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "defc26e9-ff4e-476c-a258-a65de438a87a",
+              "name": "Update accepted or queued for retry.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rooms",
+                    "~"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hr_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "room_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "@rooms.inv_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "@rooms.rate_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "availability",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "price",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "stop_sale",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cta",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "ctd",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "min_stay",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "max_stay",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "days",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "days",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "channel_codes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "channel_codes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"try_again\",\n  \"transaction_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ba8e9c1e-38ce-4d93-8196-053486b0cffe",
+              "name": "Missing or invalid token/hr_id.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rooms",
+                    "~"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hr_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "room_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "@rooms.inv_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "@rooms.rate_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "availability",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "price",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "stop_sale",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cta",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "ctd",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "min_stay",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "max_stay",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "days",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "days",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "channel_codes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "channel_codes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a4858f24-20c4-412b-b0fe-d047c1311bb6",
+          "name": "Bulk update rooms across multiple dates",
+          "request": {
+            "name": "Bulk update rooms across multiple dates",
+            "description": {
+              "content": "Updates availability, price, and restrictions for one or more rooms across up to 90 explicit dates per call, optionally scoped to specific channel codes per room.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rooms",
+                "daily"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token for the property."
+                },
+                {
+                  "disabled": false,
+                  "key": "hr_id",
+                  "value": "<string>",
+                  "description": "(Required) HotelRunner property identifier."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rooms\": [\n    {\n      \"inv_code\": \"<string>\",\n      \"dates\": [\n        {\n          \"date\": \"<date>\",\n          \"availability\": \"<string>\",\n          \"price\": \"<string>\",\n          \"min_stay\": \"<integer>\",\n          \"max_stay\": \"<integer>\",\n          \"stop_sale\": \"<integer>\",\n          \"cta\": \"<integer>\",\n          \"ctd\": \"<integer>\"\n        },\n        {\n          \"date\": \"<date>\",\n          \"availability\": \"<string>\",\n          \"price\": \"<string>\",\n          \"min_stay\": \"<integer>\",\n          \"max_stay\": \"<integer>\",\n          \"stop_sale\": \"<integer>\",\n          \"cta\": \"<integer>\",\n          \"ctd\": \"<integer>\"\n        }\n      ],\n      \"channel_codes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"inv_code\": \"<string>\",\n      \"dates\": [\n        {\n          \"date\": \"<date>\",\n          \"availability\": \"<string>\",\n          \"price\": \"<string>\",\n          \"min_stay\": \"<integer>\",\n          \"max_stay\": \"<integer>\",\n          \"stop_sale\": \"<integer>\",\n          \"cta\": \"<integer>\",\n          \"ctd\": \"<integer>\"\n        },\n        {\n          \"date\": \"<date>\",\n          \"availability\": \"<string>\",\n          \"price\": \"<string>\",\n          \"min_stay\": \"<integer>\",\n          \"max_stay\": \"<integer>\",\n          \"stop_sale\": \"<integer>\",\n          \"cta\": \"<integer>\",\n          \"ctd\": \"<integer>\"\n        }\n      ],\n      \"channel_codes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7ae64e88-9c75-4be0-8b57-6c549faa1d11",
+              "name": "Update accepted, queued for retry, or partially failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rooms",
+                    "daily"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hr_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rooms\": [\n    {\n      \"inv_code\": \"<string>\",\n      \"dates\": [\n        {\n          \"date\": \"<date>\",\n          \"availability\": \"<string>\",\n          \"price\": \"<string>\",\n          \"min_stay\": \"<integer>\",\n          \"max_stay\": \"<integer>\",\n          \"stop_sale\": \"<integer>\",\n          \"cta\": \"<integer>\",\n          \"ctd\": \"<integer>\"\n        },\n        {\n          \"date\": \"<date>\",\n          \"availability\": \"<string>\",\n          \"price\": \"<string>\",\n          \"min_stay\": \"<integer>\",\n          \"max_stay\": \"<integer>\",\n          \"stop_sale\": \"<integer>\",\n          \"cta\": \"<integer>\",\n          \"ctd\": \"<integer>\"\n        }\n      ],\n      \"channel_codes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"inv_code\": \"<string>\",\n      \"dates\": [\n        {\n          \"date\": \"<date>\",\n          \"availability\": \"<string>\",\n          \"price\": \"<string>\",\n          \"min_stay\": \"<integer>\",\n          \"max_stay\": \"<integer>\",\n          \"stop_sale\": \"<integer>\",\n          \"cta\": \"<integer>\",\n          \"ctd\": \"<integer>\"\n        },\n        {\n          \"date\": \"<date>\",\n          \"availability\": \"<string>\",\n          \"price\": \"<string>\",\n          \"min_stay\": \"<integer>\",\n          \"max_stay\": \"<integer>\",\n          \"stop_sale\": \"<integer>\",\n          \"cta\": \"<integer>\",\n          \"ctd\": \"<integer>\"\n        }\n      ],\n      \"channel_codes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"try_again\",\n  \"transaction_id\": \"string\",\n  \"errors\": [\n    {\n      \"key_0\": 7327\n    },\n    {\n      \"key_0\": 2781,\n      \"key_1\": false,\n      \"key_2\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d877313c-637c-439c-9f70-adcd2f222d3b",
+              "name": "Missing or invalid token/hr_id.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rooms",
+                    "daily"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hr_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rooms\": [\n    {\n      \"inv_code\": \"<string>\",\n      \"dates\": [\n        {\n          \"date\": \"<date>\",\n          \"availability\": \"<string>\",\n          \"price\": \"<string>\",\n          \"min_stay\": \"<integer>\",\n          \"max_stay\": \"<integer>\",\n          \"stop_sale\": \"<integer>\",\n          \"cta\": \"<integer>\",\n          \"ctd\": \"<integer>\"\n        },\n        {\n          \"date\": \"<date>\",\n          \"availability\": \"<string>\",\n          \"price\": \"<string>\",\n          \"min_stay\": \"<integer>\",\n          \"max_stay\": \"<integer>\",\n          \"stop_sale\": \"<integer>\",\n          \"cta\": \"<integer>\",\n          \"ctd\": \"<integer>\"\n        }\n      ],\n      \"channel_codes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"inv_code\": \"<string>\",\n      \"dates\": [\n        {\n          \"date\": \"<date>\",\n          \"availability\": \"<string>\",\n          \"price\": \"<string>\",\n          \"min_stay\": \"<integer>\",\n          \"max_stay\": \"<integer>\",\n          \"stop_sale\": \"<integer>\",\n          \"cta\": \"<integer>\",\n          \"ctd\": \"<integer>\"\n        },\n        {\n          \"date\": \"<date>\",\n          \"availability\": \"<string>\",\n          \"price\": \"<string>\",\n          \"min_stay\": \"<integer>\",\n          \"max_stay\": \"<integer>\",\n          \"stop_sale\": \"<integer>\",\n          \"cta\": \"<integer>\",\n          \"ctd\": \"<integer>\"\n        }\n      ],\n      \"channel_codes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.hotelrunner.com/api/v2/apps",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "904b2efa-6e2f-43bb-a18c-bbd40ee29ebe",
+    "name": "HotelRunner Custom Apps REST Channels Inventory API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The HotelRunner Custom Apps REST API lets a property's PMS or revenue management system connect to HotelRunner - retrieve room/rate configuration, push availability and rate updates, retrieve and acknowledge reservations, fire reservation state-change events, list connected sales channels, and read setup reference data. All Custom Apps endpoints require `token` and `hr_id` query-string credentials issued from the property's HotelRunner Partners extranet (\"My Property\" section, or a sandbox test property for PMS partners). HotelRunner can also push new and updated reservations to a partner-hosted HTTPS URL as a webhook (see the Realtime Push documentation) - this is not modeled as an OpenAPI path because HotelRunner is the caller, not the server, for that flow. Endpoints and fields below are transcribed from HotelRunner's public developer docs at developers.hotelrunner.com; fields not explicitly shown in an example response are marked as modeled/inferred in comments where relevant.\n\nContact Support:\n Name: HotelRunner",
+      "type": "text/plain"
+    }
+  }
+}

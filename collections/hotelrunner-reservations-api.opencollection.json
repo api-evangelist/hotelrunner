@@ -1,0 +1,171 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HotelRunner Custom Apps REST Channels Reservations API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reservations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve reservations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.hotelrunner.com/api/v2/apps/reservations",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token for the property."
+              },
+              {
+                "name": "hr_id",
+                "value": "",
+                "type": "query",
+                "description": "HotelRunner property identifier."
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query",
+                "description": "Format YYYY-MM-DD. Defaults to 10 days before today."
+              },
+              {
+                "name": "from_last_update_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reservation_number",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "undelivered",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "modified",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "booked",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists reservations for the property, defaulting to undelivered reservations from the last 10 days. Supports pagination and filters for a specific reservation number, modified reservations, and booked (created) reservations."
+        },
+        {
+          "info": {
+            "name": "Confirm or cancel a reservation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.hotelrunner.com/api/v2/apps/reservations/fire",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token for the property."
+              },
+              {
+                "name": "hr_id",
+                "value": "",
+                "type": "query",
+                "description": "HotelRunner property identifier."
+              },
+              {
+                "name": "hr_number",
+                "value": "",
+                "type": "query",
+                "description": "The reservation code in HotelRunner."
+              },
+              {
+                "name": "event",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cancel_reason",
+                "value": "",
+                "type": "query",
+                "description": "Required when event=cancel."
+              }
+            ]
+          },
+          "docs": "Fires a state-change event on a reservation identified by its HotelRunner reservation number (hr_number). Use event=confirm to confirm and event=cancel to cancel, supplying a cancel_reason when cancelling."
+        },
+        {
+          "info": {
+            "name": "Confirm reservation delivery",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.hotelrunner.com/api/v2/apps/reservations/~",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token for the property."
+              },
+              {
+                "name": "hr_id",
+                "value": "",
+                "type": "query",
+                "description": "HotelRunner property identifier."
+              },
+              {
+                "name": "message_uid",
+                "value": "",
+                "type": "query",
+                "description": "Unique ID of the reservation delivery message."
+              },
+              {
+                "name": "pms_number",
+                "value": "",
+                "type": "query",
+                "description": "The reservation number in the connecting PMS."
+              }
+            ]
+          },
+          "docs": "Acknowledges that a reservation delivered via the retrieve/realtime push flow was received and processed by the PMS, identified by the message_uid found at the end of the reservation's JSON payload."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

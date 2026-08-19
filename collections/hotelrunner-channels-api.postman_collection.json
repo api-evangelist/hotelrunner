@@ -1,0 +1,196 @@
+{
+  "item": [
+    {
+      "id": "844e7892-cc6f-4333-a2f1-7231b2c298d7",
+      "name": "Channels",
+      "description": {
+        "content": "Connected OTA / sales channel status.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2135391c-bc3e-4257-a0d1-16a50117e9ea",
+          "name": "List connected channels",
+          "request": {
+            "name": "List connected channels",
+            "description": {
+              "content": "Returns all OTA / sales channels connected to the property along with counts of in-progress, succeeded, and failed distribution updates for each channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "infos",
+                "connected_channels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token for the property."
+                },
+                {
+                  "disabled": false,
+                  "key": "hr_id",
+                  "value": "<string>",
+                  "description": "(Required) HotelRunner property identifier."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "37127031-08c2-43f3-a727-64c4a43210de",
+              "name": "Connected channel list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "infos",
+                    "connected_channels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hr_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"channels\": [\n    {\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"in_progress\": 847,\n      \"succeeded\": 8529,\n      \"failed\": 1735\n    },\n    {\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"in_progress\": 1171,\n      \"succeeded\": 2835,\n      \"failed\": 5485\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "535fb17a-5c5d-46ec-90e1-39de6673b1f4",
+              "name": "Missing or invalid token/hr_id.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "infos",
+                    "connected_channels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hr_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.hotelrunner.com/api/v2/apps",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d788f0df-ec78-4d36-b442-34a8bfa72326",
+    "name": "HotelRunner Custom Apps REST Channels API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The HotelRunner Custom Apps REST API lets a property's PMS or revenue management system connect to HotelRunner - retrieve room/rate configuration, push availability and rate updates, retrieve and acknowledge reservations, fire reservation state-change events, list connected sales channels, and read setup reference data. All Custom Apps endpoints require `token` and `hr_id` query-string credentials issued from the property's HotelRunner Partners extranet (\"My Property\" section, or a sandbox test property for PMS partners). HotelRunner can also push new and updated reservations to a partner-hosted HTTPS URL as a webhook (see the Realtime Push documentation) - this is not modeled as an OpenAPI path because HotelRunner is the caller, not the server, for that flow. Endpoints and fields below are transcribed from HotelRunner's public developer docs at developers.hotelrunner.com; fields not explicitly shown in an example response are marked as modeled/inferred in comments where relevant.\n\nContact Support:\n Name: HotelRunner",
+      "type": "text/plain"
+    }
+  }
+}

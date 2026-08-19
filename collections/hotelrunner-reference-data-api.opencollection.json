@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HotelRunner Custom Apps REST Channels Reference Data API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reference Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get property kinds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.hotelrunner.com/api/v2/apps/api/property/types.json"
+          },
+          "docs": "Returns the id-name mapping of property kinds (Villa, Resort, etc)."
+        },
+        {
+          "info": {
+            "name": "Get room kinds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.hotelrunner.com/api/v2/apps/api/room/types.json"
+          },
+          "docs": "Returns the id-name mapping of room kinds (Apartment, Bungalow, etc)."
+        },
+        {
+          "info": {
+            "name": "Get currencies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.hotelrunner.com/api/v2/apps/api/currency/currencies.json"
+          },
+          "docs": "Returns the selectable currency list for a property."
+        },
+        {
+          "info": {
+            "name": "Get property services",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.hotelrunner.com/api/v2/apps/services/get-property-services"
+          },
+          "docs": "Returns the id-name mapping of general property services shown on a property's listing. Path documented under HotelRunner's Services navigation; exact JSON response is modeled on the sibling reference endpoints."
+        },
+        {
+          "info": {
+            "name": "Get property facilities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.hotelrunner.com/api/v2/apps/services/get-property-facilities"
+          },
+          "docs": "Returns the id-name mapping of property facilities. Path documented under HotelRunner's Services navigation; exact JSON response is modeled on the sibling reference endpoints."
+        },
+        {
+          "info": {
+            "name": "Get room amenities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.hotelrunner.com/api/v2/apps/services/get-room-amenities"
+          },
+          "docs": "Returns the id-name mapping of room amenities. Path documented under HotelRunner's Services navigation; exact JSON response is modeled on the sibling reference endpoints."
+        },
+        {
+          "info": {
+            "name": "Get country codes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.hotelrunner.com/api/v2/apps/services/country-codes"
+          },
+          "docs": "Returns the ISO country code list used across property and guest setup."
+        },
+        {
+          "info": {
+            "name": "Get channel list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.hotelrunner.com/api/v2/apps/services/channel-list"
+          },
+          "docs": "Returns the master list of OTA / sales channel codes HotelRunner can connect a property to, independent of which channels a given property currently has enabled."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
