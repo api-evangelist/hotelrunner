@@ -148,6 +148,9 @@ apis:
   - type: Documentation
     url: https://developers.hotelrunner.com/services/get-currencies
 common:
+- type: CapabilityMap
+  url: capabilities/hotelrunner-capability-edges.yml
+  name: HotelRunner Business Capability Map
 - type: AgenticAccess
   url: agentic-access/hotelrunner-agentic-access.yml
 - type: DomainSecurity

@@ -1,0 +1,46 @@
+slug: hotelrunner
+provider: HotelRunner
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Travel & Hospitality
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Reservations
+  spec_file: hotelrunner-reservations-api-openapi.yml
+  capability_id: BC-4020
+  capability_id_l1: BC-4020
+  capability_name: Reservation & Booking Management
+  confidence: 0.88
+  evidence: GET /reservations listReservations "Retrieve reservations"; PUT /reservations/fire "Confirm
+    or cancel a reservation"; PUT /reservations/~ "Confirm reservation delivery"
+  reason: Operations retrieve, acknowledge and confirm/cancel property reservations, which is reservation
+    lifecycle handling. Spans capture-side retrieval and confirm/cancel, so only the L1 is asserted.
+- tag: Inventory
+  spec_file: hotelrunner-inventory-api-openapi.yml
+  capability_id: BC-4010.50
+  capability_id_l1: BC-4010
+  capability_name: Channel Manager Operations
+  confidence: 0.8
+  evidence: PUT /rooms/~  updateRoomDateRange  Update room availability/rates/restrictions over a date
+    range; Bulk update rooms across multiple dates
+  reason: Pushing availability, rates and restrictions for room types into the channel manager for distribution
+    to connected channels is channel-manager inventory/rate synchronisation. Could alternatively be read
+    as inventory & capacity controls (BC-4030.30), hence 0.8.
+- tag: Channels
+  spec_file: hotelrunner-channels-api-openapi.yml
+  capability_id: BC-4010.50
+  capability_id_l1: BC-4010
+  capability_name: Channel Manager Operations
+  confidence: 0.75
+  evidence: GET /infos/connected_channels  listConnectedChannels  List connected channels; HotelRunner
+    is a channel manager ... list connected sales channels
+  reason: Lists the OTA/sales channels connected to the property within a channel manager hub — channel
+    manager operations.
