@@ -296,13 +296,6 @@ components:
           - error
         message:
           type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid token/hr_id.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/StatusResult'
   parameters:
     Token:
       name: token
@@ -318,6 +311,13 @@ components:
       description: HotelRunner property identifier.
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid token/hr_id.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StatusResult'
   securitySchemes:
     tokenAuth:
       type: apiKey
