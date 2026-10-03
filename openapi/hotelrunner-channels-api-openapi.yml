@@ -42,30 +42,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  schemas:
-    Channel:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: string
-        in_progress:
-          type: integer
-        succeeded:
-          type: integer
-        failed:
-          type: integer
-    StatusResult:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - ok
-          - error
-        message:
-          type: string
   parameters:
     Token:
       name: token
@@ -81,6 +57,30 @@ components:
       description: HotelRunner property identifier.
       schema:
         type: string
+  schemas:
+    StatusResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - error
+        message:
+          type: string
+    Channel:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+        in_progress:
+          type: integer
+        succeeded:
+          type: integer
+        failed:
+          type: integer
   responses:
     Unauthorized:
       description: Missing or invalid token/hr_id.

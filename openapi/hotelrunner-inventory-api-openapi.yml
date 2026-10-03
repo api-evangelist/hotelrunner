@@ -237,7 +237,32 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    Token:
+      name: token
+      in: query
+      required: true
+      description: Authentication token for the property.
+      schema:
+        type: string
+    HrId:
+      name: hr_id
+      in: query
+      required: true
+      description: HotelRunner property identifier.
+      schema:
+        type: string
   schemas:
+    StatusResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - error
+        message:
+          type: string
     UpdateResult:
       type: object
       properties:
@@ -286,31 +311,6 @@ components:
           type: string
         sell_online:
           type: boolean
-    StatusResult:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - ok
-          - error
-        message:
-          type: string
-  parameters:
-    Token:
-      name: token
-      in: query
-      required: true
-      description: Authentication token for the property.
-      schema:
-        type: string
-    HrId:
-      name: hr_id
-      in: query
-      required: true
-      description: HotelRunner property identifier.
-      schema:
-        type: string
   responses:
     Unauthorized:
       description: Missing or invalid token/hr_id.
