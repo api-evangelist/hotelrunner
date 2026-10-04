@@ -58,16 +58,6 @@ components:
       schema:
         type: string
   schemas:
-    StatusResult:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - ok
-          - error
-        message:
-          type: string
     Channel:
       type: object
       properties:
@@ -81,6 +71,16 @@ components:
           type: integer
         failed:
           type: integer
+    StatusResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - error
+        message:
+          type: string
   responses:
     Unauthorized:
       description: Missing or invalid token/hr_id.

@@ -163,32 +163,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    Token:
-      name: token
-      in: query
-      required: true
-      description: Authentication token for the property.
-      schema:
-        type: string
-    HrId:
-      name: hr_id
-      in: query
-      required: true
-      description: HotelRunner property identifier.
-      schema:
-        type: string
   schemas:
-    StatusResult:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - ok
-          - error
-        message:
-          type: string
     Reservation:
       type: object
       properties:
@@ -218,6 +193,31 @@ components:
           description: Unique ID of the delivery message, used with confirmReservationDelivery. Documented as appearing at the end of the reservation JSON; not shown in HotelRunner's abbreviated example response (modeled).
       x-endpointsModeled:
       - message_uid field position/shape
+    StatusResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - error
+        message:
+          type: string
+  parameters:
+    Token:
+      name: token
+      in: query
+      required: true
+      description: Authentication token for the property.
+      schema:
+        type: string
+    HrId:
+      name: hr_id
+      in: query
+      required: true
+      description: HotelRunner property identifier.
+      schema:
+        type: string
   responses:
     Unauthorized:
       description: Missing or invalid token/hr_id.
