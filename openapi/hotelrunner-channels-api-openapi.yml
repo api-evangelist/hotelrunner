@@ -43,18 +43,18 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   parameters:
-    Token:
-      name: token
-      in: query
-      required: true
-      description: Authentication token for the property.
-      schema:
-        type: string
     HrId:
       name: hr_id
       in: query
       required: true
       description: HotelRunner property identifier.
+      schema:
+        type: string
+    Token:
+      name: token
+      in: query
+      required: true
+      description: Authentication token for the property.
       schema:
         type: string
   schemas:
