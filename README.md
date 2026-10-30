@@ -1,4 +1,4 @@
-# HotelRunner (hotelrunner)
+# HotelRunner
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,119 +66,121 @@
 
 HotelRunner is a Turkey-founded global hospitality technology platform - a channel manager, central reservation system, booking engine, and website/content manager for hotels, apartments, and travel agencies. Its Custom Apps program exposes a token-authenticated REST API (and a legacy OTA-style XML/SOAP API) so a property's PMS or revenue management system can pull room and rate configuration, push availability/rate/restriction updates to connected OTAs and channels, retrieve and acknowledge reservations, and receive real-time reservation pushes via an HTTP webhook callback.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/hotelrunner/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/hotelrunner/refs/heads/main/apis.yml)
+**Areas:** Hospitality · Hotels · Channel Manager · Booking Engine · PMS · Travel
 
-## Tags
+## HotelRunner on APIs.io
 
-- Hospitality
-- Hotel
-- Channel Manager
-- Booking Engine
-- PMS
-- Travel
+Everything profiled for HotelRunner is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/hotelrunner/](https://apis.io/providers/hotelrunner/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (4)
 
-- **Created:** 2026-07-03
-- **Modified:** 2026-07-03
+- [HotelRunner Channels API](https://apis.io/apis/hotelrunner/hotelrunner-channels-api/) — Connected OTA / sales channel status.
+- [HotelRunner Inventory API](https://apis.io/apis/hotelrunner/hotelrunner-inventory-api/) — Room types, master rates, availability, and restrictions.
+- [HotelRunner Reference Data API](https://apis.io/apis/hotelrunner/hotelrunner-reference-data-api/) — Read-only lookup data used for property and integration setup.
+- [HotelRunner Reservations API](https://apis.io/apis/hotelrunner/hotelrunner-reservations-api/) — Retrieve, confirm, cancel, and acknowledge reservations.
 
-## APIs
+### Published properties
 
-### HotelRunner Inventory API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Retrieves a property's room types and master rate configuration, and pushes availability, price, stop-sale, min/max stay, and CTA/CTD restriction updates - either for a single room over a date range or in bulk across multiple rooms and up to 90 dates per call - scoped to specific sales channels.
+#### Agentic access (1)
 
-- **Human URL:** [https://developers.hotelrunner.com/custom-apps/rest-api/inventory/get-room-list](https://developers.hotelrunner.com/custom-apps/rest-api/inventory/get-room-list)
-- **Base URL:** `https://app.hotelrunner.com/api/v2/apps`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Hotelrunner Agentic Access](https://apis.io/agentic-access/hotelrunner/hotelrunner-agentic-access/)
 
-- Rooms
-- Rates
-- Availability
-- Restrictions
+#### Collections (5)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://developers.hotelrunner.com/custom-apps/rest-api)
-- [API Reference](https://developers.hotelrunner.com/custom-apps/rest-api/inventory/get-room-list)
-- [OpenAPI](openapi/hotelrunner-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hotelrunner.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hotelrunner.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [HotelRunner Custom Apps REST API](https://apis.io/collections/hotelrunner/open-hotelrunner/)
+- [HotelRunner Custom Apps REST Channels API](https://apis.io/collections/hotelrunner/open-hotelrunner-channels-api/)
+- [HotelRunner Custom Apps REST Channels Inventory API](https://apis.io/collections/hotelrunner/open-hotelrunner-inventory-api/)
+- [HotelRunner Custom Apps REST Channels Reference Data API](https://apis.io/collections/hotelrunner/open-hotelrunner-reference-data-api/)
+- [HotelRunner Custom Apps REST Channels Reservations API](https://apis.io/collections/hotelrunner/open-hotelrunner-reservations-api/)
 
-### HotelRunner Reservations API
+#### Security (2)
 
-Pulls undelivered, modified, or booked reservations (with pagination and date filters), fires confirm/cancel state-change events, and acknowledges delivery of a reservation by its message UID. HotelRunner can also be configured to push new and updated reservations in real time as an outbound HTTP POST webhook to a URL hosted on the connecting PMS.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://developers.hotelrunner.com/custom-apps/rest-api/reservations/retrieve-reservations](https://developers.hotelrunner.com/custom-apps/rest-api/reservations/retrieve-reservations)
-- **Base URL:** `https://app.hotelrunner.com/api/v2/apps`
+- [Hotelrunner Authentication](https://apis.io/security/hotelrunner/hotelrunner-authentication/)
+- [Hotelrunner Domain Security](https://apis.io/security/hotelrunner/hotelrunner-domain-security/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Reservations
-- Bookings
-- Webhooks
-- Realtime Push
+Published plans, tiers and prices.
 
-#### Properties
+- [Hotelrunner Plans Pricing](https://apis.io/plans/hotelrunner/hotelrunner-plans-pricing/)
 
-- [API Reference](https://developers.hotelrunner.com/custom-apps/rest-api/reservations/retrieve-reservations)
-- [Documentation](https://developers.hotelrunner.com/custom-apps/rest-api/reservations/realtime-push)
-- [OpenAPI](openapi/hotelrunner-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hotelrunner.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hotelrunner.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Rate limits (1)
 
-### HotelRunner Channels API
+Published request limits.
 
-Lists the OTAs and sales channels connected to a property (Booking.com, Expedia, Airbnb, Online booking engine, and more) along with in-progress, succeeded, and failed update counts for each, so a PMS can monitor channel distribution health.
+- [Hotelrunner Rate Limits](https://apis.io/rate-limits/hotelrunner/hotelrunner-rate-limits/)
 
-- **Human URL:** [https://developers.hotelrunner.com/custom-apps/rest-api/channels](https://developers.hotelrunner.com/custom-apps/rest-api/channels)
-- **Base URL:** `https://app.hotelrunner.com/api/v2/apps`
+#### FinOps (1)
 
-#### Tags
+What the API costs to run, by operation.
 
-- Channels
-- Connectivity
-- OTA
+- [Hotelrunner Finops](https://apis.io/finops/hotelrunner/hotelrunner-finops/)
 
-#### Properties
+## Where to find this API
 
-- [API Reference](https://developers.hotelrunner.com/custom-apps/rest-api/channels)
-- [OpenAPI](openapi/hotelrunner-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hotelrunner.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hotelrunner.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### HotelRunner Reference Data API
-
-Read-only lookup endpoints backing property setup and integration mapping - property kinds, room kinds, room amenities, property services and facilities, sellable currencies, ISO country codes, and the master list of connectable OTA channel codes.
-
-- **Human URL:** [https://developers.hotelrunner.com/services/get-currencies](https://developers.hotelrunner.com/services/get-currencies)
-- **Base URL:** `https://app.hotelrunner.com`
-
-#### Tags
-
-- Reference Data
-- Property Kinds
-- Currencies
-- Amenities
-
-#### Properties
-
-- [Documentation](https://developers.hotelrunner.com/services/get-currencies)
-- [OpenAPI](openapi/hotelrunner-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hotelrunner.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hotelrunner.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/company/hotelrunner)
 - [Website](https://hotelrunner.com/)
 - [Documentation](https://developers.hotelrunner.com/)
-- [Plans](plans/hotelrunner-plans-pricing.yml)
-- [Rate Limits](rate-limits/hotelrunner-rate-limits.yml)
-- [Fin Ops](finops/hotelrunner-finops.yml)
+- [Blog](https://hotelrunner.com/en/blog/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 26.4** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 47.8 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 7.9 |
+
+**Agent readiness 19.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/hotelrunner/](https://apis.io/providers/hotelrunner/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for HotelRunner: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/hotelrunner/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
